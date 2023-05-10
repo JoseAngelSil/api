@@ -1,0 +1,2 @@
+ALTER TABLE medicos
+CHANGE COLUMN `isActive` `activo` TINYINT(4) NULL DEFAULT NULL ;

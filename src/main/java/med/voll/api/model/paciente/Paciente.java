@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.api.controller.pacientes.RegistroPaciente;
 import med.voll.api.model.direccion.Direccion;
 
 @Table(name = "pacientes")
@@ -33,5 +32,20 @@ public class Paciente {
         this.nss = registroPaciente.nss();
         this.activo = true;
         this.direccion = new Direccion(registroPaciente.direccion());
+    }
+
+    public void actualizarDatos(DatosActualizarPacientes actualizarPacientes) {
+        if (actualizarPacientes.nombre() != null)
+            this.nombre = actualizarPacientes.nombre();
+        if (actualizarPacientes.nss() != null)
+            this.nss = actualizarPacientes.nss();
+        if (actualizarPacientes.activo() != null)
+            this.activo = actualizarPacientes.activo();
+        if (actualizarPacientes.direccion() != null)
+            this.direccion = direccion.actualizarDatos(actualizarPacientes.direccion());
+    }
+
+    public void bajaDeServicioMedico() {
+        this.activo = false;
     }
 }

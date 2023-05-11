@@ -1,11 +1,8 @@
 package med.voll.api.controller.pacientes;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.model.medico.DatosListadoMedico;
-import med.voll.api.model.medico.DatosRegistroMedico;
-import med.voll.api.model.medico.Medico;
-import med.voll.api.model.paciente.Paciente;
-import med.voll.api.model.paciente.PacienteRepository;
+import med.voll.api.model.paciente.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,4 +24,23 @@ public class PacienteController {
         return pacienteRepository.findByActivoTrue(paginacion).map(ListaPacientes::new);
     }
 
+    /**
+     * Metodo modificarPaciente es el metodo que modifica los campos de los pacientes
+     * que estan dados de alta o de baja
+     * @param actualizarPacientes recibe los componentes que recibe el ID, y puede
+     *                            obtener nombre, nss, activo y objetos de direccion.
+     */
+    @PutMapping
+    @Transactional
+    public void modificarPaciente(@RequestBody @Valid DatosActualizarPacientes actualizarPacientes) {
+        Paciente paciente = pacienteRepository.getReferenceById(actualizarPacientes.id());
+        paciente.actualizarDatos(actualizarPacientes);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void bajaDeServicioMedico(@PathVariable Long id){
+        Paciente paciente = pacienteRepository.getReferenceById(id);
+        paciente.bajaDeServicioMedico();
+    }
 }

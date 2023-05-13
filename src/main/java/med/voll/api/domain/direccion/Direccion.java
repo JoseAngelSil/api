@@ -1,4 +1,4 @@
-package med.voll.api.model.direccion;
+package med.voll.api.domain.direccion;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

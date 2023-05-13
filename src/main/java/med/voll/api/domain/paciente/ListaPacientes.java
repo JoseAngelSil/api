@@ -1,6 +1,4 @@
-package med.voll.api.model.paciente;
-
-import med.voll.api.model.paciente.Paciente;
+package med.voll.api.domain.paciente;
 
 public record ListaPacientes(
         Long id,
